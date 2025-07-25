@@ -18,7 +18,7 @@ button {
     font-size: 15px;
 }
 
-.header > div {
+.header>div {
     width: 40%;
     height: 60px;
     display: flex;
@@ -33,6 +33,7 @@ button {
 .header button {
     width: 120px;
     height: 36px;
+    text-transform: uppercase;
 }
 
 .signUpBtn {
@@ -72,7 +73,7 @@ button {
     height: 25px;
 }
 
-.headUser > div img {
+.headUser>div img {
     width: 15px;
 }
 
@@ -215,6 +216,14 @@ button {
     text-align: center;
 }
 
+.cartPage {
+    width: 100%;
+    margin-top: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 table,
 th,
 td {
@@ -288,7 +297,7 @@ td {
         padding: 10px 0;
     }
 
-    .header > div {
+    .header>div {
         width: 100%;
         justify-content: space-around;
         flex-wrap: wrap;
@@ -532,7 +541,7 @@ td {
         padding: 10px 0;
     }
 
-    .header > div {
+    .header>div {
         width: 100%;
         justify-content: space-around;
         flex-wrap: wrap;
