@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    font-family: Helvetica, Arial, sans-serif;;
 }
 
 button {
@@ -37,15 +38,15 @@ button {
 }
 
 .signUpBtn {
-    background-color: red;
+    background-color: #ed1224;
     color: #f9f9f9;
-    border: 1px solid red;
+    border: 1px solid #ed1224;
 }
 
 .signInBtn {
     background-color: white;
-    color: red;
-    border: 1px solid red;
+    color: #ed1224;
+    border: 1px solid #ed1224;
 }
 
 .header>div>div {
@@ -54,6 +55,10 @@ button {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.headerInfo {
+    color: #65696e;
 }
 
 .headInfo img {
@@ -80,7 +85,7 @@ button {
 .cartCount {
     width: 20px;
     height: 20px;
-    background-color: red;
+    background-color: #ed1224;
     border-radius: 100%;
     display: flex;
     align-items: center;
@@ -161,10 +166,12 @@ button {
 
 .addProduct {
     width: 18%;
-    padding: 60px 32px 0 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    height: 150px;
+    padding: 0 32px;
+}
+
+.inStock {
+    margin: 10px 0;
 }
 
 .cart {
@@ -184,17 +191,17 @@ button {
 .btn1 {
     width: 130px;
     height: 40px;
-    background-color: red;
+    background-color: #ed1224;
     color: #f9f9f9;
-    border: 1px solid red;
+    border: 1px solid #ed1224;
 }
 
 .btn2 {
     width: 120px;
     height: 40px;
     background-color: white;
-    color: red;
-    border: 1px solid red;
+    color: #ed1224;
+    border: 1px solid #ed1224;
 }
 
 .deleteFromCart {
@@ -207,7 +214,7 @@ button {
 .cartTable {
     width: 100%;
     height: 200px;
-    background-color: red;
+    background-color: #ed1224;
 }
 
 .cartTables table {
@@ -240,10 +247,10 @@ td {
 }
 
 .addToCart {
-    width: 100%;
-    max-width: 113px;
+    width: 113px;
+    height: 69px !important;
     height: auto;
-    background-color: red;
+    background-color: #ed1224;
     color: white;
     font-size: 17px;
     border: 1px solid white;
@@ -460,7 +467,6 @@ td {
     }
 
     .availability {
-        color: #0ca;
         font-size: 14px;
         margin-top: 8px;
         margin-bottom: 4px;
@@ -590,7 +596,7 @@ td {
 
     .addProduct {
         width: 100%;
-        padding: 0;
+        padding-top: 20px;
         align-items: center;
         justify-content: center;
     }

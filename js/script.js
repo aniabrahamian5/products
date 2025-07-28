@@ -61,7 +61,7 @@ $(document).ready(function () {
                 </div>
                 <div class="addProduct">
                     <button class="addToCart">ADD TO CART</button>
-                    <p>In Stock</p>
+                    <p class="inStock">In Stock</p>
                     <p><a href="#">Typically ships in: ${product.shippingInfo} days</a></p>
                 </div>
             </div>
