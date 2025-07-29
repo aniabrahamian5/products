@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="js/cart.js" defer></script>
 </head>
@@ -13,19 +15,19 @@
     <div class="header">
         <div class="headInfo">
             <div>
-                <img src="img/phone.png" alt="phone">
-                <span><a href="">tel:+1(866)577-4040</a></span>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span><a href="">1(866)577-4040</a></span>
             </div>
             <div>
-                <img src="img/letter.png" alt="letter">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span><a href="">info@hvhindustrial.com</a></span>
             </div>
             <div>
-                <img src="img/chat.png" alt="chat">
+                <i class="fa fa-comment" aria-hidden="true"></i>
                 <span><a href="">Chat Live</a></span>
             </div>
             <div>
-                <img src="img/quote.png" alt="quote">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
                 <span><a href="">Get a Quote</a></span>
             </div>
         </div>
@@ -35,7 +37,7 @@
                     <div class="cartCount">
                         <p>0</p>
                     </div>
-                    <img src="img/cart.png" class="cartIcon" alt="cart">
+                    <img src="img/cart.svg" class="cartIcon" alt="cartIcon">
                 </a>
             </div>
             <div>
@@ -46,18 +48,28 @@
             </div>
             <div>
                 <span>Eng</span>
-                <img src="img/down.png" alt="down">
+                <img src="img/downArrow.svg" alt="down">
             </div>
         </div>
     </div>
     <div class="cartPage">
         <div class="cart">
             <div class="cartItems"></div>
-            <div class="cartTables"></div>
             <div class="cartMobile"></div>
-            <div class="summary"></div>
+            <div class="summary"></div> 
         </div>
     </div>
+
+    <div id="deleteModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <p>Are you sure you want to delete product from cart?</p>
+            <div class="modal-buttons">
+                <button id="modalCancel" class="modal-btn">NO</button>
+                <button id="modalConfirm" class="modal-btn danger">YES</button>
+            </div>
+        </div>
+    </div>
+
 
 </body>
 

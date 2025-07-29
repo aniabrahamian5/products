@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,29 +8,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/jquery.min.js" defer></script>
     <script src="js/script.js" defer></script>
+    <script src="js/chatbot.js" defer></script>
     <title>Document</title>
 </head>
+
 <body>
     <div class="header">
         <div class="headInfo">
             <div>
-                <!-- <img src="img/phone.png" alt="phone"> -->
-                 <i class="fa fa-phone" aria-hidden="true"></i>
-                <span><a href="">tel:+1(866)577-4040</a></span>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span><a href="">1(866)577-4040</a></span>
             </div>
             <div>
-                <!-- <img src="img/letter.png" alt="letter"> -->
-                 <i class="fa fa-envelope" aria-hidden="true"></i>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span><a href="">info@hvhindustrial.com</a></span>
             </div>
             <div>
-                <!-- <img src="img/chat.png" alt="chat"> -->
-                 <i class="fa fa-comment" aria-hidden="true"></i>
+                <i class="fa fa-comment" aria-hidden="true"></i>
                 <span><a href="">Chat Live</a></span>
             </div>
             <div>
-                <!-- <img src="img/quote.png" alt="quote"> -->
-                 <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
                 <span><a href="">Get a Quote</a></span>
             </div>
         </div>
@@ -50,11 +49,46 @@
             </div>
             <div>
                 <span>Eng</span>
-                <img src="img/downArrow.svg" alt="down">
+                <img src="img/downArrow.svg" alt="down" class="downArrow">
             </div>
         </div>
     </div>
     <div class="products">
     </div>
+
+    <div class="chatBot">
+        <div class="chatbot-popup">
+            <div class="chat-header">
+                <div class="header-info">
+                    <img src="img/logo.jpeg" alt="logo" class="chatBotLogo">
+                    <h2 class="logo-text">Customer Support</h2>
+                </div>
+                <button id="close-chatbot" class="material-symbols-rounded">v</button>
+            </div>
+            <div class="chat-body">
+                <div class="message bot-message">
+                    <img src="img/person.svg" alt="person" class="chatBotPerson">
+                    <div class="message-text">
+                        Welcome to our site, if you need help simply reply to this message, we are online and ready to
+                        help.
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+            <div class="chat-footer">
+                <form action="#" class="chat-form">
+                    <textarea placeholder="message..." class="message-input" required></textarea>
+                    <div class="chat-controls">
+                        <button type="button" class="material-symbols-rounded">1</button>
+                        <button type="button" class="material-symbols-rounded">2</button>
+                        <button type="submit" class="material-symbols-rounded" id="send-message">3</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

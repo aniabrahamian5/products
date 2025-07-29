@@ -46,20 +46,21 @@ $(document).ready(function () {
         $('.products').append(`
             <div class="product" data-index="${index}">
                 <div class="imgProduct">
-                    <img src="${product.img}">
+                    <img src="${product.img}" alt="product">
                 </div>
                 <div class="aboutProduct">
-                    <span>${product.title}</span>
+                    <span class="productsSpan">${product.title}</span>
                     <a href="#">${product.subtitle}</a>
-                    <p>${product.code}</p>
+                    <span class="codeSpan">${product.code.slice(0, 4)}<span class="productCode codeSpan">${product.code.slice(4)}</span></span>
                     <p>${product.text.slice(0, 250)}... <a href='#' class="cartText">Read more</a></p>
                 </div>
                 <div class="priceProduct">
-                    <span>${product.price}</span>
+                    <span class="productsSpan">$${product.price.toFixed(2)}</span>
                     <input type="number" class="productsCount" value="1" min="1" max="${product.quantity}">
                     <p>Availability:</p>
                 </div>
                 <div class="addProduct">
+                    <div class='transParentDiv'></div>
                     <button class="addToCart">ADD TO CART</button>
                     <p class="inStock">In Stock</p>
                     <p><a href="#">Typically ships in: ${product.shippingInfo} days</a></p>
@@ -103,13 +104,14 @@ $(document).ready(function () {
         const thisButton = $('.addToCart')[productIndex]
         thisButton.disabled = true;
         thisButton.textContent = 'ADDED'
-        thisButton.style.backgroundColor = "rgba(255, 0, 0, 0.5)";
-        thisButton.style.width = "70px";
+        thisButton.style.backgroundColor = "#ed122454";
+        thisButton.style.width = "63px";
         thisButton.style.height = "40px";
+        thisButton.style.padding = "5px"
         setTimeout(() => {
             thisButton.disabled = false;
             thisButton.textContent = 'ADD TO CART'
-            thisButton.style.backgroundColor = "red"
+            thisButton.style.backgroundColor = "#ed1224"
             thisButton.style.width = "113px";
             thisButton.style.height = "69px";
         }, 3000)
