@@ -182,6 +182,8 @@ button {
 
 .cartProductsCount {
     margin: 0;
+    width: 32px !important;
+    padding: 0 0 0 12px !important;
 }
 
 .aboutProduct {
@@ -230,6 +232,10 @@ button {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.cartButtons {
+    padding: 0 120px;
 }
 
 .btn1 {
@@ -318,6 +324,12 @@ button {
     align-items: flex-start;
     gap: 10px;
     width: 200px;
+    color: #5fb4b7;
+    font-size: 14px;
+}
+
+.mobile-left a {
+    color: #5fb4b7;
 }
 
 .mobile-left img {
@@ -335,16 +347,22 @@ button {
 .cart-title {
     font-weight: bold;
     font-size: 18px;
+    color: #292929;
 }
 
 .cart-meta {
     font-size: 14px;
-    color: #666;
+    color: #777;
+}
+
+.closeImg, .minusImg, .addImg {
+    width: 20px !important;
 }
 
 .price {
     font-size: 16px;
     font-weight: bold;
+    color: #333;
 }
 
 .qty-controls {
@@ -359,10 +377,10 @@ button {
 .qty-controls button {
     width: 32px;
     height: 32px;
-    font-size: 18px;
-    background: #eee;
-    border: 1px solid #ccc;
+    background: #f2f2f2;
+    border: none;
     border-radius: 4px;
+    padding: 6px;
     cursor: pointer;
 }
 
@@ -453,10 +471,20 @@ button {
     height: 40px;
 }
 
-/* stegh em hasel */
+.chatNow {
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+    background-color: #ea1d20;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    padding: 12px 15px;
+}
 
 .chatBotLogo {
-    width: 30px;
+    width: 10px;
 }
 
 .chatBotPerson {
@@ -464,11 +492,12 @@ button {
 }
 
 .chatBot {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    background-color: white;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
 }
 
 .chatbot-popup {
@@ -476,7 +505,7 @@ button {
     width: 300px;
     background-color: white;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
 }
 
 .chat-header {
@@ -493,16 +522,6 @@ button {
     align-items: center;
 }
 
-.header-info .chatBotLogo {
-    height: 35px;
-    width: 35px;
-    padding: 6px;
-    fill: #ea1d20;
-    flex-shrink: 0;
-    background-color: #fff;
-    border-radius: 50%;
-}
-
 .header-info .logo-text {
     color: #fff;
     font-size: 1.31rem;
@@ -511,27 +530,15 @@ button {
 
 .chat-header #close-chatbot {
     border: none;
-    color: #fff;
-    height: 40px;
-    width: 40px;
-    font-size: 1.9rem;
-    margin-right: -10px;
-    padding-top: 2px;
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: none;
-    transition: 0.2s ease;
-}
-
-.chat-header #close-chatbot:hover {
-    background-color: #ea1d20;
+    height: 10px;
+    width: 10px;
 }
 
 .chat-body {
     padding: 25px 22px;
     display: flex;
     gap: 20px;
-    height: 460px;
+    height: 320px;
     margin-bottom: 82px;
     overflow-y: auto;
     flex-direction: column;
@@ -567,15 +574,15 @@ button {
 }
 
 .chat-body .bot-message.thinking .message-text {
-   padding: 2px 16px;
+    padding: 2px 16px;
 }
 
-.chat-body .bot-message .message-text{
+.chat-body .bot-message .message-text {
     background: #f2f2ff;
     border-radius: 13px 13px 13px 3px;
 }
 
-.chat-body .user-message .message-text{
+.chat-body .user-message .message-text {
     color: #fff;
     background: #ea1d20;
     border-radius: 13px 13px 3px 13px;
@@ -596,20 +603,27 @@ button {
     animation: dotPulse 1.8s ease-in-out infinite;
 }
 
-.chat-body .bot-message .thinking-indicatotr .dot:nth-child(1){
+.chat-body .bot-message .thinking-indicatotr .dot:nth-child(1) {
     animation-delay: 0.2s;
 }
 
-.chat-body .bot-message .thinking-indicatotr .dot:nth-child(2){
+.chat-body .bot-message .thinking-indicatotr .dot:nth-child(2) {
     animation-delay: 0.3s;
 }
 
-.chat-body .bot-message .thinking-indicatotr .dot:nth-child(3){
+.chat-body .bot-message .thinking-indicatotr .dot:nth-child(3) {
     animation-delay: 0.4s;
 }
 
+.upImg {
+    width: 35px;
+    height: 35px;
+}
+
 @keyframes dotPulse {
-    0%, 44% {
+
+    0%,
+    44% {
         transform: translateY(0);
     }
 
@@ -693,7 +707,7 @@ button {
     background-color: white;
 }
 
-@media (min-width: 721px) and (max-width: 1024px) {
+@media (min-width: 768px) and (max-width: 1024px) {
     .header {
         flex-direction: column;
         height: auto;
@@ -733,9 +747,132 @@ button {
         font-size: 14px;
         height: 40px;
     }
+
+    .products>div {
+        width: 95%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: auto;
+        padding: 10px;
+        gap: 10px;
+        border-bottom: 1px solid #ccc;
+        position: relative;
+    }
+
+    .imgProduct {
+        width: 30%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: none;
+        border: none;
+    }
+
+    .imgProduct img {
+        width: 100%;
+        max-width: 100px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .aboutProduct {
+        width: 40%;
+        padding: 0;
+    }
+
+    .aboutProduct .productsSpan {
+        font-size: 14px;
+        display: block;
+    }
+
+    .aboutProduct .codeSpan {
+        font-size: 12px !important;
+    }
+
+    .aboutProduct p {
+        display: none;
+    }
+
+    .inStock,
+    .ships {
+        display: none !important;
+    }
+
+    .priceProduct {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .priceProduct span {
+        font-size: 16px;
+    }
+
+    .addProduct {
+        width: 150px;
+        padding: 15px 0;
+    }
+
+    .addToCart {
+        width: 100px !important;
+        height: 40px !important;
+        display: inline-block;
+        background-color: #ed1224;
+        color: #fff;
+        border: none;
+        font-size: 13px !important;
+        width: auto;
+        height: auto;
+        border-radius: 3px;
+    }
+
+    .addToCart {
+        width: 80%;
+        height: 45px;
+        font-size: 16px;
+        margin-left: 10%;
+    }
+
+    .cart {
+        width: 90%;
+    }
+
+    .cartItems {
+        flex-direction: column;
+        height: auto;
+        gap: 10px;
+    }
+
+    .cartItems h1 {
+        font-size: 22px;
+    }
+
+    .cartItems button {
+        width: 120px;
+        font-size: 14px;
+    }
+
+    .cartButtons {
+        padding: 0;
+    }
+
+    .productsCount {
+        width: 50px;
+    }
+
+    .cartCount {
+        top: 0;
+        left: 10px;
+    }
+
+    .headUserIcon {
+        position: relative;
+    }
 }
 
-@media (max-width: 721px) {
+@media (max-width: 768px) {
     .headInfo {
         display: none !important;
     }
@@ -800,5 +937,93 @@ button {
         width: 45%;
         font-size: 14px;
         height: 40px;
+    }
+
+    .cartButtons {
+        padding: 0;
+    }
+
+    .headUserIcon {
+        position: relative;
+    }
+
+    .products>div {
+        width: 95%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        height: auto;
+        padding: 10px;
+        gap: 10px;
+        border-bottom: 1px solid #ccc;
+        position: relative;
+    }
+
+    .imgProduct {
+        width: 30%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: none;
+        border: none;
+    }
+
+    .imgProduct img {
+        width: 100%;
+        max-width: 100px;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .aboutProduct {
+        width: 40%;
+        padding: 0;
+    }
+
+    .aboutProduct .productsSpan {
+        font-size: 14px;
+        display: block;
+    }
+
+    .aboutProduct .codeSpan {
+        font-size: 12px !important;
+    }
+
+    .aboutProduct p {
+        display: none;
+    }
+
+    .inStock,
+    .ships {
+        display: none !important;
+    }
+
+    .priceProduct {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .priceProduct span {
+        font-size: 16px;
+    }
+
+    .addProduct {
+        width: 150px;
+        padding: 15px 0;
+    }
+
+    .addToCart {
+        width: 100px !important;
+        height: 40px !important;
+        display: inline-block;
+        background-color: #ed1224;
+        color: #fff;
+        border: none;
+        font-size: 13px;
+        width: auto;
+        height: auto;
+        border-radius: 3px;
     }
 }

@@ -63,7 +63,7 @@ $(document).ready(function () {
                     <div class='transParentDiv'></div>
                     <button class="addToCart">ADD TO CART</button>
                     <p class="inStock">In Stock</p>
-                    <p><a href="#">Typically ships in: ${product.shippingInfo} days</a></p>
+                    <p class="ships"><a href="#">Typically ships in: ${product.shippingInfo} days</a></p>
                 </div>
             </div>
         `);
@@ -112,8 +112,13 @@ $(document).ready(function () {
             thisButton.disabled = false;
             thisButton.textContent = 'ADD TO CART'
             thisButton.style.backgroundColor = "#ed1224"
-            thisButton.style.width = "113px";
-            thisButton.style.height = "69px";
+            if (window.innerWidth <= 768) { 
+                thisButton.style.width = "100px";
+                thisButton.style.height = "40px";
+            } else { 
+                thisButton.style.width = "113px";
+                thisButton.style.height = "69px";
+            }
         }, 3000)
     });
 

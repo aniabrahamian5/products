@@ -1,0 +1,253 @@
+$(".close-panel").click(function() {
+    $(".alert-danger").hide();
+});
+$.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+if ($('#payment-form').length != 0) {
+    var payment_form = new DatPayment({
+        form_selector: '#payment-form',
+        card_container_selector: '.dpf-card-placeholder',
+
+        number_selector: '.dpf-input[data-type="number"]',
+        date_selector: '.dpf-input[data-type="expiry"]',
+        cvc_selector: '.dpf-input[data-type="cvc"]',
+        name_selector: '.dpf-input[data-type="name"]',
+
+        submit_button_selector: '.dpf-submit',
+
+        placeholders: {
+            number: '•••• •••• •••• ••••',
+            expiry: '••/••',
+            cvc: '•••',
+            name: 'Name on card'
+        },
+
+        validators: {
+            number: function(number){
+                return Stripe.card.validateCardNumber(number);
+            },
+            expiry: function(expiry){
+                var expiry = expiry.split(' / ');
+                return Stripe.card.validateExpiry(expiry[0]||0,expiry[1]||0);
+            },
+            cvc: function(cvc){
+                return Stripe.card.validateCVC(cvc);
+            },
+            name: function(value){
+                return value.length > 0;
+            }
+        }
+    });
+}
+
+$(".panel-body").each(function() {
+    var cardID=$(this).find('form').attr("data-card");
+    var payment_forms = "payment_form";
+    var payment_form=payment_forms+cardID;
+    if (cardID) {
+        payment_form = new DatPayment({
+            form_selector: '#payment-form'+cardID,
+            card_container_selector: '.dpf-card-placeholder'+cardID,
+
+            number_selector: '.dpf-input[data-type="number'+cardID+'"]',
+            date_selector: '.dpf-input[data-type="expiry'+cardID+'"]',
+            cvc_selector: '.dpf-input[data-type="cvc'+cardID+'"]',
+            name_selector: '.dpf-input[data-type="name'+cardID+'"]',
+
+            submit_button_selector: '.dpf-submit',
+
+            placeholders: {
+                number: '•••• •••• •••• ••••',
+                expiry: '••/••',
+                cvc: '•••',
+                name: 'Name on card'
+            },
+
+            validators: {
+                number: function(number){
+                    return Stripe.card.validateCardNumber(number);
+                },
+                expiry: function(expiry){
+                    var expiry = expiry.split(' / ');
+                    return Stripe.card.validateExpiry(expiry[0]||0,expiry[1]||0);
+                },
+                cvc: function(cvc){
+                    return Stripe.card.validateCVC(cvc);
+                },
+                name: function(value){
+                    return value.length > 0;
+                }
+            }
+        });
+    }
+
+});
+
+function gotopayment(){
+  var number_cart = $('#cart-number').val();
+  var expiry = $('#expiry').val().replace("/", "_");
+  var cvc = $('#cvc').val();
+  var name_surname = $('#name_surname').val();
+  var address_id = $('.address_id').val();
+  if ($("#cart-number").hasClass('visa')) {
+    var cart_type="visa";
+  } else if ($("#cart-number").hasClass('mastercard')) {
+    var cart_type="mastercard";
+  } else if ($("#cart-number").hasClass('discover')) {
+    var cart_type="discover";
+  } else if ($("#cart-number").hasClass('amex')) {
+    var cart_type="amex";
+  }
+  if ($("#cart-number").hasClass('jp-card-valid') && $("#expiry").hasClass('jp-card-valid') && $("#cvc").hasClass('jp-card-valid') && $("#name_surname").hasClass('jp-card-valid')) {
+    $(".error-message").hide();
+    document.getElementById("btn-checkout").style.cursor = "wait";
+    document.getElementById("btn-checkout").disabled = true;
+    $.post('/cabinet/addcard/'+cart_type+'/'+number_cart+"/"+expiry+"/"+cvc+"/"+name_surname+"/"+address_id,'json',function(data){
+        if(data != 0){
+          if (data=="Error! This card already added.") {
+              $(".error-message").find("strong").html(data);
+              $(".error-message").show();
+          } else {
+              location.reload();
+          }
+        }
+        document.getElementById("btn-checkout").style.cursor = "pointer";
+        document.getElementById("btn-checkout").disabled = false;
+    });
+  } else {
+    $(".error-message").show();
+  }
+}
+function gotopaymentform(x){
+  var number_cart = $('#cart-number'+x).val();
+  var expiry = $('#expiry'+x).val().replace("/", "_");
+  var cvc = $('#cvc'+x).val();
+  var name_surname = $('#name_surname'+x).val();
+  if ($("#cart-number"+x).hasClass('visa')) {
+    var cart_type="visa";
+} else if ($("#cart-number"+x).hasClass('mastercard')) {
+    var cart_type="mastercard";
+} else if ($("#cart-number"+x).hasClass('discover')) {
+    var cart_type="discover";
+} else if ($("#cart-number"+x).hasClass('amex')) {
+    var cart_type="amex";
+  }
+  if ($("#cart-number"+x).hasClass('jp-card-valid') && $("#expiry"+x).hasClass('jp-card-valid') && $("#cvc"+x).hasClass('jp-card-valid') && $("#name_surname"+x).hasClass('jp-card-valid')) {
+    $(".error-message"+x).hide();
+    document.getElementById("btn-checkout"+x).style.cursor = "wait";
+    document.getElementById("btn-checkout"+x).disabled = true;
+    $.post('/cabinet/editcard/'+cart_type+'/'+number_cart+"/"+expiry+"/"+cvc+"/"+name_surname+"/"+x,'json',function(data){
+        if(data != 0){
+          if (data=="Error! This card already added.") {
+              $(".error-message"+x).find("strong").html(data);
+              $(".error-message"+x).show();
+          } else {
+              location.reload();
+          }
+        }
+        document.getElementById("btn-checkout"+x).style.cursor = "pointer";
+        document.getElementById("btn-checkout"+x).disabled = false;
+    });
+  } else {
+    $(".error-message"+x).show();
+  }
+}
+function chossaddress(x) {
+    if ($(".card-"+x).val()!=0) {
+        $('#choosaddress-'+x).find("form").submit();
+    } else {
+        $(".error-choos").show();
+    }
+}
+
+function sendFeedbackFix(){
+if ($("#feedback-email-fix").val()=="") {
+  $("#feedback-email-fix").addClass('error-cart');
+} else {
+  $("#feedback-email-fix").removeClass('error-cart');
+}
+if ($("#feedback-name-fix").val()=="") {
+  $("#feedback-name-fix").addClass('error-cart');
+} else {
+  $("#feedback-name-fix").removeClass('error-cart');
+}
+if ($("#feedback-phone-fix").val()=="") {
+  $("#feedback-phone-fix").addClass('error-cart');
+} else {
+  $("#feedback-phone-fix").removeClass('error-cart');
+}
+if ($("#feedback-description-fix").val()=="") {
+  $("#feedback-description-fix").addClass('error-cart');
+} else {
+  $("#feedback-description-fix").removeClass('error-cart');
+}
+if ($("#feedback-email-fix").val()!="" && $("#feedback-description-fix").val()!="") {
+  $('.feedback-part-1-fix').fadeOut();
+  $('.feedback-part-2-fix').fadeIn();
+  var chat_feedback_text = $(".chat-feedback-text").val();
+  $(".thanks-feedback-fix").html("Dear "+$("#feedback-name-fix").val()+",<br>"+chat_feedback_text);
+  $.post('/sendfeedback/1'+'/'+$("#feedback-email-fix").val()+'/'+$("#feedback-name-fix").val()+'/'+$("#feedback-description-fix").val()+'/'+$("#feedback-phone-fix").val(),'json',function(data){
+  });
+}
+}
+if ($("#owl-carousel").length!=0) {  
+    $("#owl-carousel").owlCarousel({
+       loop: !0,
+       responsiveClass: !0,
+       responsive: {
+           0: {
+               items: 1
+           },
+           600: {
+               items: 3
+           },
+           1e3: {
+               items: 5
+           }
+       }
+   });
+}
+if ($("#owl-carousel-header").length!=0) {
+    $("#owl-carousel-header").owlCarousel({
+       loop: !0,
+       autoplay: !0,
+       responsiveClass: !0,
+       responsive: {
+           0: {
+               items: 1
+           },
+           600: {
+               items: 1
+           },
+           1e3: {
+               items: 1
+           }
+       }
+    });
+}
+if ($("#owl-carousel-review").length!=0) {
+    $("#owl-carousel-review").owlCarousel({
+       loop: !0,
+       autoplay: !0,
+       responsiveClass: !0,
+       smartSpeed: 450,
+       responsive: {
+           0: {
+               items: 1
+           },
+           600: {
+               items: 1
+           },
+           1e3: {
+               items: 1
+           }
+       }
+    });
+}
+
+function locReload() {
+  window.location.href="/chat-feedback/"+$("#chat_dialog_id").val();
+}

@@ -1,6 +1,10 @@
 const chatBody = document.querySelector('.chat-body')
 const messageInput = document.querySelector('.message-input')
 const sendMessageButton = document.querySelector('#send-message')
+const chatNow = document.querySelector('.chatNow')
+const chatBot = document.querySelector('.chatBot')
+const closeChatbot = document.querySelector('#close-chatbot')
+const headerChatLive = document.querySelector('.headerChatLive')
 
 const API_KEY = "AIzaSyD6T9ehrmBjBa8GKGPLZMCdj02COwQCkB4"
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`
@@ -76,3 +80,15 @@ messageInput.addEventListener('keydown', (e) => {
 })
 
 sendMessageButton.addEventListener('click', (e) => handleOutgoingMessage(e))
+
+chatNow.addEventListener('click', () => {
+    chatBot.style.display = 'flex'
+})
+
+headerChatLive.addEventListener('click', () => {
+    chatBot.style.display = 'flex'
+})
+
+closeChatbot.addEventListener('click', () => {
+    chatBot.style.display = 'none'
+})

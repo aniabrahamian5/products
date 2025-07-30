@@ -7,7 +7,6 @@ $(document).ready(function () {
     } else {
         renderCartHeader();
         renderCartMobileItems(cart);
-        renderCartButtons();
         renderSummary(calculateTotal(cart));
         bindEvents();
     }
@@ -21,7 +20,8 @@ $(document).ready(function () {
     }
 
     function renderCartButtons() {
-        $('.cartMobile').append(`
+        $('.cartButtons').empty();
+        $('.cartButtons').append(`
             <div class="cartMobileButtons cartItemsButtons">
                 <button class="btn1">KEEP SHOPPING</button>
                 <button class="btn2">CLEAR CART</button>
@@ -35,38 +35,60 @@ $(document).ready(function () {
 
     function renderSummary(total) {
         $('.summary').empty().append(`<h3>Total: $${total.toFixed(2)}</h3>`);
+        renderCartButtons()
     }
 
     function renderCartMobileItems(cart) {
         $('.cartMobile').empty();
-        cart.forEach((item, index) => {
-            const itemTotal = (item.price * item.cartQuantity).toFixed(2);
-            $('.cartMobile').append(`
-                <div class="cart-mobile" data-index="${index}">
-                    <button class="remove-x deleteFromCart" data-code="${item.code}">X</button>
-                    <div class="mobile-left">
-                        <img src="${item.img}" alt="${item.title}">
-                        <div class="availability"><a href="#">Typically ships in: ${item.shippingInfo} days</a></div>
-                    </div>
-                    <div class="mobile-right">
-                        <div class="cart-title">${item.title}</div>
-                        <div class="cart-meta"><span class="codeSpan">Manufacturer <span class="productCode codeSpan rexnord">Rexnord</span></span></div>
-                        <div class="cart-meta"><strong>${item.code}</strong></div>
-                        <div class="price">$${itemTotal}</div>
-                    </div>
-                    <div class="qty-controls">
-                        <button class="qty-minus">−</button>
-                        <input type="number" class="productsCount cartProductsCount" value="${item.cartQuantity}" min="1" max="${item.quantity}">
-                        <button class="qty-plus">+</button>
-                    </div>
+    cart.forEach((item, index) => {
+        const itemTotal = (item.price * item.cartQuantity).toFixed(2);
+        $('.cartMobile').append(`
+            <div class="cart-mobile" data-index="${index}">
+                <button class="remove-x deleteFromCart" data-code="${item.code}">
+                    <img src="img/close.svg" alt="close" class="closeImg">
+                </button>
+                <div class="mobile-left">
+                    <img src="${item.img}" alt="${item.title}">
+                    <div class="availability"><a href="#">Typically ships in: ${item.shippingInfo} days</a></div>
                 </div>
-            `);
-        });
+                <div class="mobile-right">
+                    <div class="cart-title">${item.title}</div>
+                    <div class="cart-meta">
+                        <span class="codeSpan">Manufacturer 
+                            <span class="productCode codeSpan rexnord">Rexnord</span>
+                        </span>
+                    </div>
+                    <div class="cart-meta">${item.code}</div>
+                    <div class="price">$${itemTotal}</div>
+                </div>
+                <div class="qty-controls">
+                    <button class="qty-minus qty-control">
+                        <img src="img/minus.svg" alt="minus" class="minusImg">
+                    </button>
+                    <p class="cartProductsCount">${item.cartQuantity}</p>
+                    <button class="qty-plus qty-control">
+                        <img src="img/add.svg" alt="add" class="addImg">
+                    </button>
+                </div>
+            </div>
+        `);
+    });
     }
 
     function updateCartUI() {
         renderCartMobileItems(cart);
         renderSummary(calculateTotal(cart));
+    }
+
+    function updateQuantity(index, delta) {
+        if (typeof cart[index] === 'undefined') return;
+        const item = cart[index];
+        const newQty = item.cartQuantity + delta;
+        if (newQty >= 1 && newQty <= item.quantity) {
+            item.cartQuantity = newQty;
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
     }
 
     let deleteIndex = null;
@@ -75,33 +97,12 @@ $(document).ready(function () {
     function bindEvents() {
         $(document).on('click', '.qty-minus', function () {
             const index = $(this).closest('.cart-mobile').data('index');
-            if (cart[index].cartQuantity > 1) {
-                cart[index].cartQuantity--;
-                sessionStorage.setItem('cart', JSON.stringify(cart));
-                updateCartUI();
-            }
+            updateQuantity(index, -1);
         });
 
         $(document).on('click', '.qty-plus', function () {
             const index = $(this).closest('.cart-mobile').data('index');
-            if (cart[index].cartQuantity < cart[index].quantity) {
-                cart[index].cartQuantity++;
-                sessionStorage.setItem('cart', JSON.stringify(cart));
-                updateCartUI();
-            }
-        });
-
-        $(document).on('change', '.productsCount', function () {
-            const index = $(this).closest('.cart-mobile').data('index');
-            const newQty = parseInt($(this).val());
-            if (newQty > 0 && newQty <= cart[index].quantity) {
-                cart[index].cartQuantity = newQty;
-                sessionStorage.setItem('cart', JSON.stringify(cart));
-                updateCartUI();
-            } else {
-                alert("Invalid quantity");
-                $(this).val(cart[index].cartQuantity);
-            }
+            updateQuantity(index, 1);
         });
 
         $(document).on('click', '.deleteFromCart', function () {
