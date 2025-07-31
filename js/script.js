@@ -43,10 +43,11 @@ const cart = [];
 
 $(document).ready(function () {
     $.each(products, function (index, product) {
+        updateCartCount()
         $('.products').append(`
             <div class="product" data-index="${index}">
                 <div class="imgProduct">
-                    <img src="${product.img}" alt="product">
+                    <img src="${product.img}" alt="${product.title}">
                 </div>
                 <div class="aboutProduct">
                     <span class="productsSpan">${product.title}</span>
@@ -61,7 +62,7 @@ $(document).ready(function () {
                 </div>
                 <div class="addProduct">
                     <div class='transParentDiv'></div>
-                    <button class="addToCart">ADD TO CART</button>
+                    <button class="addToCart ">ADD TO CART</button>
                     <p class="inStock">In Stock</p>
                     <p class="ships"><a href="#">Typically ships in: ${product.shippingInfo} days</a></p>
                 </div>
@@ -104,22 +105,11 @@ $(document).ready(function () {
         const thisButton = $('.addToCart')[productIndex]
         thisButton.disabled = true;
         thisButton.textContent = 'ADDED'
-        thisButton.style.backgroundColor = "#ed122454";
-        thisButton.style.width = "63px";
-        thisButton.style.height = "40px";
-        thisButton.style.padding = "5px"
+        thisButton.classList.add('addedToCart')
         setTimeout(() => {
             thisButton.disabled = false;
             thisButton.textContent = 'ADD TO CART'
-            thisButton.style.backgroundColor = "#ed1224"
-            if (window.innerWidth <= 768) { 
-                thisButton.style.width = "100px";
-                thisButton.style.height = "40px";
-            } else { 
-                thisButton.style.width = "113px";
-                thisButton.style.height = "69px";
-            }
+            thisButton.classList.remove('addedToCart')
         }, 3000)
     });
-
 });

@@ -23,8 +23,8 @@ $(document).ready(function () {
         $('.cartButtons').empty();
         $('.cartButtons').append(`
             <div class="cartMobileButtons cartItemsButtons">
-                <button class="btn1">KEEP SHOPPING</button>
-                <button class="btn2">CLEAR CART</button>
+                <button class="btn2">clear cart</button>
+                <button class="btn1">keep shopping</button>
             </div>
         `);
     }
@@ -34,11 +34,12 @@ $(document).ready(function () {
     }
 
     function renderSummary(total) {
-        $('.summary').empty().append(`<h3>Total: $${total.toFixed(2)}</h3>`);
+        $('.summary').empty().append(`<div class='totalPrice'><h4>Subtotal:</h4><span> $${total.toFixed(2)}</span></div>`);
         renderCartButtons()
     }
 
     function renderCartMobileItems(cart) {
+        updateCartCount()
         $('.cartMobile').empty();
     cart.forEach((item, index) => {
         const itemTotal = (item.price * item.cartQuantity).toFixed(2);
@@ -73,6 +74,16 @@ $(document).ready(function () {
             </div>
         `);
     });
+    }
+
+    function updateCartCount() {
+        const storedCart = sessionStorage.getItem('cart');
+        const cart = storedCart ? JSON.parse(storedCart) : [];
+        let totalCount = 0;
+        cart.forEach(item => {
+            totalCount += item.cartQuantity;
+        });
+        $('.cartCount p').text(totalCount);
     }
 
     function updateCartUI() {
