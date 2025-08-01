@@ -66,7 +66,7 @@ $(document).ready(function () {
                     <button class="qty-minus qty-control">
                         <img src="img/minus.svg" alt="minus" class="minusImg">
                     </button>
-                    <p class="cartProductsCount">${item.cartQuantity}</p>
+                        <input type="number" class="productsCount cartProductsCount" value="${item.cartQuantity}" min="1">
                     <button class="qty-plus qty-control">
                         <img src="img/add.svg" alt="add" class="addImg">
                     </button>
@@ -90,6 +90,23 @@ $(document).ready(function () {
         renderCartMobileItems(cart);
         renderSummary(calculateTotal(cart));
     }
+
+    $(document).on('keydown', '.cartProductsCount', function (e) {
+        if (e.key === 'Enter') {
+            const index = $(this).closest('.cart-mobile').data('index');
+            let newQty = parseInt($(this).val(), 10);
+
+            if (isNaN(newQty)) return;
+
+            const maxQty = cart[index].quantity;
+            if (newQty < 1) newQty = 1;
+            if (newQty > maxQty) newQty = maxQty;
+
+            cart[index].cartQuantity = newQty;
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+    });
 
     function updateQuantity(index, delta) {
         if (typeof cart[index] === 'undefined') return;
